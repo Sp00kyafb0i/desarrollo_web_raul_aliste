@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Crear Actividad</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/nueva.css">
+    </head>
+    <body>
+        <ul class="navbar">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nueva-actividad.html">Agregar Actividad</a></li>
+            <li><a href="lista.html">Lista de Actividades</a></li>
+            <li><a href="estadisticas.html">Estadisticas</a></li>
+        </ul>
+
+        <h1>Agrega una actividad</h1>
+        <h2>Donde</h2>
+
+        <form>Region:
+            <select name="Regiones" id="regiones" onchange="regionChange()" required>
+                <option value=""></option>
+            </select>
+        </form>
+        <form>Comuna:
+            <select name="Regiones" id="comunas" required>
+                <option value=""></option>
+            </select>
+        </form>
+        <form>Sector:
+            <input type="text" maxlength="100">
+        </form>
+        
+        <script src="/js/nueva.js" async defer></script>
+    </body>
+</html>

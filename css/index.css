@@ -1,0 +1,42 @@
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+
+.navbar li {
+    float: left;
+    border: 1px solid #0020bf;
+}
+
+.navbar li a {
+    display: block;
+    color: black;
+    padding: 8px;
+    background-color: #dddddd;
+}
+.navbar li a:hover {
+    background-color: #555;
+    color:white
+}
+
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-left: 3em;
+    padding-right: 3em;
+    background-color: cadetblue;
+}
+td img {
+    width: 100px;
+    height: 100px;
+}
+
+table {
+    margin-left: 5em;
+    margin-right: 5em;
+}
