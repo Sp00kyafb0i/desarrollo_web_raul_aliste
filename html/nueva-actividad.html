@@ -17,21 +17,44 @@
         </ul>
 
         <h1>Agrega una actividad</h1>
-        <h2>Donde</h2>
 
-        <form>Region:
+        <form>
+            <h2>Donde</h2>
+            Region:
             <select name="Regiones" id="regiones" onchange="regionChange()" required>
                 <option value=""></option>
             </select>
-        </form>
-        <form>Comuna:
+            <div></div>
+            Comuna:
             <select name="Regiones" id="comunas" required>
                 <option value=""></option>
             </select>
-        </form>
-        <form>Sector:
+            <div></div>
+            Sector:
             <input type="text" maxlength="100">
+            <h2>Quien organiza:</h2>
+            Nombre:
+            <input type="text" maxlength="200" required>
+            <div></div>
+            Correo Electronico:
+            <input type="email" maxlength="100" required>
+            <div></div>
+            Numero de Celular:
+            +<input type="tel" size="3">.<input type="tel" size="15">
+            <div id="contactar">Contactar por:
+                <select id="contacto" onchange="addContact(this)">
+                    <option value="" disabled selected>Selecciona</option>
+                    <option value="">Whatsapp</option>
+                    <option value="">Telegram</option>
+                    <option value="">X</option>
+                    <option value="">Instagram</option>
+                    <option value="">Tiktok</option>
+                    <option value="">Facebook</option>
+                </select>
+            </div>
         </form>
+        
+        
         
         <script src="/js/nueva.js" async defer></script>
     </body>

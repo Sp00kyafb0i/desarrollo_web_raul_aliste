@@ -92,3 +92,15 @@ function regionChange() {
         }
     }
 }
+var contactCnt = 1;
+function addContact(cosa) {
+    if (cosa.box == "false") {
+        var added = document.createElement("input");
+        added.setAttribute("type", "text");
+        added.setAttribute("maxlength", 50);
+        added.setAttribute("minlength", 4);
+        document.getElementById("contactar").appendChild(added);
+        cosa.box = "true";
+        contactCnt++;
+    }
+}
