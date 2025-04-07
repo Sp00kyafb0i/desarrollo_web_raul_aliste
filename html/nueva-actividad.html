@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,12 +22,12 @@
             <h2>Donde</h2>
             Region:
             <select name="Regiones" id="regiones" onchange="regionChange()" required>
-                <option value=""></option>
+                <option value="">Seleccione</option>
             </select>
             <div></div>
             Comuna:
             <select name="Regiones" id="comunas" required>
-                <option value=""></option>
+                <option value="">Seleecione</option>
             </select>
             <div></div>
             Sector:
@@ -68,7 +68,7 @@
             Descripcion: <textarea name="description" id="description-id" rows="10" cols="50"></textarea>
             <div></div>
             Tema: 
-            <select name="temas" id="temas-id" onchange="themeChange(this)" required>
+            <select name="temas" id="temas-id" onchange="themeChange(this)">
                 <option value="opciones" selected>Opciones</option>
                 <option value="">Musica</option>
                 <option value="">Deporte</option>
@@ -83,7 +83,7 @@
             </select>
             <input type="text" id="otro" name="otro-id" style="display: none;" minlength="3" maxlength="15">
             <div id="files">
-                Foto:<input type="file" name="" id="file-id">
+                Foto:<input type="file" id="file-id">
                 <button onclick="newFile()" type="button">Agregar foto</button>
             </div>
             <button onclick="endForm()" type="button">Agregar esta Actividad</button>

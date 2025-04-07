@@ -31,17 +31,14 @@ table, th, td {
     padding-right: 3em;
     background-color: cadetblue;
 }
-td img {
-    width: 100px;
-    height: 100px;
-}
+
 
 table {
     margin-left: 5em;
     margin-right: 5em;
 }
 
-.graphs img {
-    width: 600px;
-    height: 400px;
+.fotos img{
+    width: 320px;
+    height: 240px;
 }

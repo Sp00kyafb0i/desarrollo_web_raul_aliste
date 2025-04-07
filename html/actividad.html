@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Actividad</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/actividad.css">
     </head>
     <body>
         <ul class="navbar">
@@ -18,7 +18,24 @@
         </ul>
 
         <h1>Actividad:</h1>
+        Inicio: 2025-03-28 12:00<br>
+        Termino: 2025-03-28 16:00<br>
+        Comuna: Santiago<br>
+        Sector: Beauchef 850, terraza<br>
+        Tema: Boxeo<br>
+        Nombre Organizador: John Doe<br>
+        Fotos:
+        <div class="fotos">
+            <img src="/images/eepy.webp" alt="Foto1" onclick="zoom(this)" id="foto1" name="foto1btn"> 
+            <button type="button" style="display: none;" name="foto1" onclick="noZoom(this)" id="foto1btn">Cerrar</button><br>
+            <img src="/images/GniboyWW0AAFSea.jpg" alt="Foto2" onclick="zoom(this)" id="foto2" name="foto2btn"> 
+            <button type="button" style="display: none;" name="foto2" onclick="noZoom(this)" id="foto2btn">Cerrar</button><br>
+            <img src="/images/GniVIiSXsAA-U9S.jpg" alt="Foto3" onclick="zoom(this)" id="foto3" name="foto3btn"> 
+            <button type="button" style="display: none;" name="foto3" onclick="noZoom(this)" id="foto3btn">Cerrar</button><br>
+            <img src="/images/ProntoCopecADS.webp" alt="Foto4" onclick="zoom(this)" id="foto4" name="foto4btn"> 
+            <button type="button" style="display: none;" name="foto4" onclick="noZoom(this)" id="foto4btn">Cerrar</button><br>
+        </div>
         
-        <script src="" async defer></script>
+        <script src="/js/actividad.js" async defer></script>
     </body>
 </html>
