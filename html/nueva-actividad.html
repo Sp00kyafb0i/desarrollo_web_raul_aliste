@@ -82,8 +82,21 @@
                 <option value="other">Otro</option>
             </select>
             <input type="text" id="otro" name="otro-id" style="display: none;" minlength="3" maxlength="15">
-            <div></div>
-            <input type="file" name="" id="" multiple>
+            <div id="files">
+                Foto:<input type="file" name="" id="">
+                <button onclick="newFile()">Agregar foto</button>
+            </div>
+            <button onclick="endForm()">Agregar esta Actividad</button>
+            <div id="confirmation" style="display: none;">
+                ¿Esta seguro que desea agregar esta actividad? <br>
+                <button onclick="yep()">Si, estoy seguro</button>
+                <button onclick="nope()">No, no estoy seguro</button>
+            </div>
+            <div id="next" style="display: none;">
+                Hemos recibido su información, muchas gracias y suerte en su actividad
+                <button onclick="goBack()">Volver</button>
+            </div>
+            
         </form>
         
         

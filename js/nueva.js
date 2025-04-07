@@ -139,3 +139,37 @@ function themeChange(element){
         document.getElementById("otro").style.display = "none";
     }
 }
+
+var files = 1;
+function newFile() {
+    console.log("New file");
+    var file = document.createElement("input");
+    file.type = "file";
+    var button = document.createElement("button");
+    button.innerHTML = "Agregar foto";
+    button.onclick = newFile;
+    var div = document.createElement("div");
+    document.getElementById("files").appendChild(div);
+    document.getElementById("files").appendChild(file);
+    if (files < 4) {
+        document.getElementById("files").appendChild(button);
+    }
+    files = files + 1;
+}
+
+function endForm() {
+    document.getElementById("confirmation").style.display = "block"
+}
+
+function nope() {
+    document.getElementById("confirmation").style.display = "none";
+}
+
+function yep() {
+    document.getElementById("next").style.display = "block";
+    
+}
+
+function goBack() {
+    window.location.href = "index.html";
+}
