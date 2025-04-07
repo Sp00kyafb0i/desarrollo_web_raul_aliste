@@ -92,15 +92,50 @@ function regionChange() {
         }
     }
 }
-var contactCnt = 1;
-function addContact(cosa) {
-    if (cosa.box == "false") {
-        var added = document.createElement("input");
-        added.setAttribute("type", "text");
-        added.setAttribute("maxlength", 50);
-        added.setAttribute("minlength", 4);
-        document.getElementById("contactar").appendChild(added);
-        cosa.box = "true";
-        contactCnt++;
+
+function check(element){
+    if (element.checked) {
+        document.getElementById(element.name).style.display = "block";
+    } else {
+        document.getElementById(element.name).style.display = "none";
+    }
+}
+
+window.addEventListener("load", time);
+function time() {
+    var now = new Date();
+    var utcString = now.toISOString().substring(0,16);
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var localDatetime = year + "-" +
+                      (month < 10 ? "0" + month.toString() : month) + "-" +
+                      (day < 10 ? "0" + day.toString() : day) + "T" +
+                      (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                      (minute < 10 ? "0" + minute.toString() : minute);
+    var then = new Date(now.getTime()+ 60*60*1000*3);
+    var year2 = then.getFullYear();
+    var month2 = then.getMonth() + 1;
+    var day2 = then.getDate();
+    var hour2 = then.getHours();
+    var minute2 = then.getMinutes();
+    var localDatetime2 = year + "-" +
+                      (month2 < 10 ? "0" + month2.toString() : month2) + "-" +
+                      (day2 < 10 ? "0" + day2.toString() : day2) + "T" +
+                      (hour2 < 10 ? "0" + hour2.toString() : hour2) + ":" +
+                      (minute2 < 10 ? "0" + minute2.toString() : minute2);
+    var datetimeField = document.getElementById("hora-actual");
+    var datetimeField2 = document.getElementById("hora-sgte");
+    datetimeField.value = localDatetime;
+    datetimeField2.value = localDatetime2;
+}
+
+function themeChange(element){
+    if (element.value == "other") {
+        document.getElementById("otro").style.display = "block";
+    } else {
+        document.getElementById("otro").style.display = "none";
     }
 }
