@@ -158,7 +158,7 @@ function newFile() {
 }
 
 function endForm() {
-    document.getElementById("confirmation").style.display = "block"
+    document.getElementById("confirmation").style.display = "block";
 }
 
 function nope() {
@@ -166,10 +166,118 @@ function nope() {
 }
 
 function yep() {
-    document.getElementById("next").style.display = "block";
-    
+    console.log(checkRegion());
+    console.log(checkSector());
+    console.log(checkName());
+    console.log(checkMail());
+    console.log(checkNro());
+    console.log(checkContact());
+    console.log(checkTime());
+    console.log(checkTheme());
+    console.log(checkFiles());
+    if (checkForm()) {
+        document.getElementById("next").style.display = "block";
+    }
 }
 
 function goBack() {
     window.location.href = "index.html";
+}
+
+
+function checkForm() {
+    return (checkRegion() && checkSector() && checkName() && checkMail() && checkNro() && checkContact() && checkTime() && checkTheme() && checkFiles());
+}
+
+function checkRegion() {
+    if (document.getElementById("regiones").value == "" || document.getElementById("comunas").value == "") {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function checkSector() {
+    if (document.getElementById("sector").value.length <= 100) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function checkName() {
+    if (document.getElementById("name").value.length > 0 && document.getElementById("name").value.length <= 200) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+function checkMail() {
+    if (document.getElementById("email").value.length > 0 && document.getElementById("email").value.length <= 100) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(document.getElementById("email").value);
+    }
+    else {
+        return false;
+    }
+}
+
+function checkNro() {
+    const regex = /^\d{1,4}$/;;
+    if (document.getElementById("nro").value.length == 8) {
+        return regex.test(document.getElementById("codigo").value);
+    }
+    else {
+        return false;
+    }
+}
+
+function checkContact() {
+    const inputs = document.querySelectorAll(".contact");
+    for (x in inputs) {
+        if (x.checked) {
+            if (document.getElementById(x.name).value.length < 4 || document.getElementById(x.name).value.length > 50) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function checkTime() {
+    if (document.getElementById("hora-actual").value !== "") {
+        var now = new Date();
+        var hora = new Date(document.getElementById("hora-actual").value);
+        var hora2 = new Date(document.getElementById("hora-sgte").value);
+        if (hora > now && hora2 > hora) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkTheme() {
+    if (document.getElementById("temas-id").value == "Opciones") {
+        return false;
+    }
+    if (document.getElementById("temas-id").value == "Otro") {
+        if (document.getElementById("otro-id").value.length < 3 || document.getElementById("otro-id").value.length > 15) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkFiles() {
+    if (document.getElementById("file-id").files.length > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }

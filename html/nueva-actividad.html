@@ -31,33 +31,33 @@
             </select>
             <div></div>
             Sector:
-            <input type="text" maxlength="100">
+            <input type="text" id="sector" maxlength="100">
             <h2>Quien organiza:</h2>
             Nombre:
-            <input type="text" maxlength="200" required>
+            <input type="text" maxlength="200" id="name" required>
             <div></div>
             Correo Electronico:
-            <input type="email" maxlength="100" required>
+            <input type="email" maxlength="100" required id="email">
             <div></div>
             Numero de Celular:
-            +<input type="tel" size="3">.<input type="tel" size="15">
+            +<input type="tel" size="3" id="codigo">.<input type="tel" size="15" id="nro">
             <div></div>
-            <input type="checkbox" name="whatsapp" onclick="check(this)"> Whatsapp
+            <input type="checkbox" name="whatsapp" onclick="check(this)" class="contact"> Whatsapp
             <input type="text" id="whatsapp" name="whatsapp-id" style="display: none;"><br>
 
-            <input type="checkbox" name="telegram" onclick="check(this)"> Telegram
+            <input type="checkbox" name="telegram" onclick="check(this)" class="contact"> Telegram
             <input type="text" id="telegram" name="telegram-id" style="display: none;"><br>
 
-            <input type="checkbox" name="x" onclick="check(this)"> X
+            <input type="checkbox" name="x" onclick="check(this)" class="contact"> X
             <input type="text" id="x" name="x-id" style="display: none;"><br>
 
-            <input type="checkbox" name="instagram" onclick="check(this)"> Instagram
+            <input type="checkbox" name="instagram" onclick="check(this)" class="contact"> Instagram
             <input type="text" id="instagram" name="instagram-id" style="display: none;"><br>
 
-            <input type="checkbox" name="tiktok" onclick="check(this)"> Tiktok
+            <input type="checkbox" name="tiktok" onclick="check(this)" class="contact"> Tiktok
             <input type="text" id="tiktok" name="tiktok-id" style="display: none;"><br>
 
-            <input type="checkbox" name="otra" onclick="check(this)"> Otra
+            <input type="checkbox" name="otra" onclick="check(this)" class="contact"> Otra
             <input type="text" id="otra" name="otra-id" style="display: none;"><br>
 
             <h2>Cuando y de que trata:</h2>
@@ -68,8 +68,8 @@
             Descripcion: <textarea name="description" id="description-id" rows="10" cols="50"></textarea>
             <div></div>
             Tema: 
-            <select name="Regiones" id="regiones" onchange="themeChange(this)" required>
-                <option value="" selected disabled>Opciones</option>
+            <select name="temas" id="temas-id" onchange="themeChange(this)" required>
+                <option value="opciones" selected>Opciones</option>
                 <option value="">Musica</option>
                 <option value="">Deporte</option>
                 <option value="">Ciencias</option>
@@ -83,18 +83,18 @@
             </select>
             <input type="text" id="otro" name="otro-id" style="display: none;" minlength="3" maxlength="15">
             <div id="files">
-                Foto:<input type="file" name="" id="">
-                <button onclick="newFile()">Agregar foto</button>
+                Foto:<input type="file" name="" id="file-id">
+                <button onclick="newFile()" type="button">Agregar foto</button>
             </div>
-            <button onclick="endForm()">Agregar esta Actividad</button>
+            <button onclick="endForm()" type="button">Agregar esta Actividad</button>
             <div id="confirmation" style="display: none;">
                 ¿Esta seguro que desea agregar esta actividad? <br>
-                <button onclick="yep()">Si, estoy seguro</button>
-                <button onclick="nope()">No, no estoy seguro</button>
+                <button onclick="yep()" type="button">Si, estoy seguro</button>
+                <button onclick="nope()" type="button">No, no estoy seguro</button>
             </div>
             <div id="next" style="display: none;">
                 Hemos recibido su información, muchas gracias y suerte en su actividad
-                <button onclick="goBack()">Volver</button>
+                <button onclick="goBack()" type="button">Volver</button>
             </div>
             
         </form>
