@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Crear Actividad</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/nueva.css') }}">
+    </head>
+    <body>
+        {% include 'html/navbar.html' %}
+
+        <h1>Agrega una actividad</h1>
+
+        <form>
+            <h2>Donde</h2>
+            Region:
+            <select name="Regiones" id="regiones" onchange="regionChange()" required>
+                <option value="">Seleccione</option>
+            </select>
+            <div></div>
+            Comuna:
+            <select name="Regiones" id="comunas" required>
+                <option value="">Seleecione</option>
+            </select>
+            <div></div>
+            Sector:
+            <input type="text" id="sector" maxlength="100">
+            <h2>Quien organiza:</h2>
+            Nombre:
+            <input type="text" maxlength="200" id="name" required>
+            <div></div>
+            Correo Electronico:
+            <input type="email" maxlength="100" required id="email">
+            <div></div>
+            Numero de Celular:
+            +<input type="tel" size="3" id="codigo">.<input type="tel" size="15" id="nro">
+            <div></div>
+            <input type="checkbox" name="whatsapp" onclick="check(this)" class="contact"> Whatsapp
+            <input type="text" id="whatsapp" name="whatsapp-id" style="display: none;"><br>
+
+            <input type="checkbox" name="telegram" onclick="check(this)" class="contact"> Telegram
+            <input type="text" id="telegram" name="telegram-id" style="display: none;"><br>
+
+            <input type="checkbox" name="x" onclick="check(this)" class="contact"> X
+            <input type="text" id="x" name="x-id" style="display: none;"><br>
+
+            <input type="checkbox" name="instagram" onclick="check(this)" class="contact"> Instagram
+            <input type="text" id="instagram" name="instagram-id" style="display: none;"><br>
+
+            <input type="checkbox" name="tiktok" onclick="check(this)" class="contact"> Tiktok
+            <input type="text" id="tiktok" name="tiktok-id" style="display: none;"><br>
+
+            <input type="checkbox" name="otra" onclick="check(this)" class="contact"> Otra
+            <input type="text" id="otra" name="otra-id" style="display: none;"><br>
+
+            <h2>Cuando y de que trata:</h2>
+            Dia y hora de inicio: <input type="datetime-local" id="hora-actual">
+            <div></div>
+            Dia y hora de termino: <input type="datetime-local" id="hora-sgte">
+            <div></div>
+            Descripcion: <textarea name="description" id="description-id" rows="10" cols="50"></textarea>
+            <div></div>
+            Tema: 
+            <select name="temas" id="temas-id" onchange="themeChange(this)">
+                <option value="opciones" selected>Opciones</option>
+                <option value="">Musica</option>
+                <option value="">Deporte</option>
+                <option value="">Ciencias</option>
+                <option value="">Religion</option>
+                <option value="">Politica</option>
+                <option value="">Tecnologia</option>
+                <option value="">Juegos</option>
+                <option value="">Baile</option>
+                <option value="">Comida</option>
+                <option value="other">Otro</option>
+            </select>
+            <input type="text" id="otro" name="otro-id" style="display: none;" minlength="3" maxlength="15">
+            <div id="files">
+                Foto:<input type="file" id="file-id">
+                <button onclick="newFile()" type="button">Agregar foto</button>
+            </div>
+            <button onclick="endForm()" type="button">Agregar esta Actividad</button>
+            <div id="confirmation" style="display: none;">
+                ¿Esta seguro que desea agregar esta actividad? <br>
+                <button onclick="yep()" type="button">Si, estoy seguro</button>
+                <button onclick="nope()" type="button">No, no estoy seguro</button>
+            </div>
+            <div id="next" style="display: none;">
+                Hemos recibido su información, muchas gracias y suerte en su actividad
+                <button onclick="goBack()" type="button">Volver</button>
+            </div>
+            
+        </form>
+        
+        
+        
+        <script src="/js/nueva.js" async defer></script>
+    </body>
+</html>

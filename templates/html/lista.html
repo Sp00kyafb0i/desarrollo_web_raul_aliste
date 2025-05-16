@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Lista de Actividades</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    </head>
+    <body>
+        {% include 'html/navbar.html' %}
+
+        <h1>Lista de actividades:</h1>
+        <table>
+            <tr>
+                <th>Inicio</th>
+                <th>Termino</th>
+                <th>Comuna</th>
+                <th>Sector</th>
+                <th>Tema</th>
+                <th>Foto</th>
+            </tr>
+            {% if data %}
+            {% for act in data%}
+            <tr>
+                <th>{{ data.dia_hora_inicio }}</th>
+                <th>{{ data.dia_hora_termino }}</th>
+                <th>{{ get_comuna(data.comuna_id).nombre }}</th>
+                <th>{{ data.sector }}</th>
+                <th>
+                    {% if get_tema(data.id).tema == "otro" %}
+                    {{ get_tema(data.id).glosa_otro }}
+                    {% else %}
+                    {{ get_tema(data.id).tema }}
+                    {% endif %}
+
+                </th>
+                <th>{{ get_photos(data.id)[0] }}</th>
+            </tr>
+            {% endfor%}
+            {% endif %}
+            
+        </table>
+        
+
+    </body>
+</html>
