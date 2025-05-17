@@ -145,6 +145,8 @@ function newFile() {
     console.log("New file");
     var file = document.createElement("input");
     file.type = "file";
+    file.name = "file" + files.toString();
+    file.accept = "image/png, image/jpg, image/gif, image/jpeg"
     var button = document.createElement("button");
     button.innerHTML = "Agregar foto";
     button.onclick = newFile;

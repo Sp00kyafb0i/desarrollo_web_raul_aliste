@@ -24,19 +24,19 @@
             {% if data %}
             {% for act in data%}
             <tr>
-                <th>{{ data.dia_hora_inicio }}</th>
-                <th>{{ data.dia_hora_termino }}</th>
-                <th>{{ get_comuna(data.comuna_id).nombre }}</th>
-                <th>{{ data.sector }}</th>
+                <th>{{ act.dia_hora_inicio }}</th>
+                <th>{{ act.dia_hora_termino }}</th>
+                <th>{{ get_comuna(act.id).nombre }}</th>
+                <th>{{ act.sector }}</th>
                 <th>
-                    {% if get_tema(data.id).tema == "otro" %}
-                    {{ get_tema(data.id).glosa_otro }}
+                    {% if get_tema(act.id).tema == "otro" %}
+                    {{ get_tema(act.id).glosa_otro }}
                     {% else %}
-                    {{ get_tema(data.id).tema }}
+                    {{ get_tema(act.id).tema }}
                     {% endif %}
 
                 </th>
-                <th>{{ get_photos(data.id)[0] }}</th>
+                <th><img src="{{ get_photos(act.id)[0].ruta_archivo }}" width="200px" height="160px"></th>
             </tr>
             {% endfor%}
             {% endif %}

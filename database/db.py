@@ -1,6 +1,6 @@
 import pymysql
 import json
-from sqlalchemy import create_engine, Column, integer, BigInteger, String, ForeignKey, Date, Enum
+from sqlalchemy import create_engine, Column, Integer, BigInteger, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 
@@ -24,47 +24,47 @@ Base = declarative_base()
 
 class Actividad(Base):
     __tablename__ = 'actividad'
-    id = Column(integer, primary_key=True, autoincrement=True)
-    comuna_id = Column(integer, ForeignKey('comuna.id'), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    comuna_id = Column(Integer, ForeignKey('comuna.id'), nullable=False)
     sector = Column(String(100), nullable=False)
     nombre = Column(String(200), nullable=False)
     email = Column(String(100), nullable=False)
     celular = Column(String(15), nullable=False)
-    dia_hora_inicio = Column(Date, nullable=False)
-    dia_hora_termino = Column(Date, nullable=True)
+    dia_hora_inicio = Column(DateTime, nullable=False)
+    dia_hora_termino = Column(DateTime, nullable=True)
     descripcion = Column(String(500), nullable=True)
 
 class Actividad_Tema(Base):
     __tablename__ = 'actividad_tema'
-    id = Column(integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     tema = Column(Enum('música','deporte','ciencias','religión','política','tecnología','juegos','baile','comida','otro', name='tema_enum'))
     glosa_otro = Column(String(15), nullable=True)
-    actividad_id = Column(integer, ForeignKey('actividad.id'), nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
 
 class Comuna(Base):
     __tablename__ = 'comuna'
-    id = Column(integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String(200), nullable=False)
-    region_id = Column(integer, ForeignKey('region.id'), nullable=False)
+    region_id = Column(Integer, ForeignKey('region.id'), nullable=False)
 
 class Contactar_Por(Base):
     __tablename__ = 'contactar_por'
-    id = Column(integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(Enum('whatsapp','telegram','X','instagram','tiktok','otra', name='contacto_enum'))
     identificador = Column(String(150), nullable=False)
-    actividad_id = Column(integer, ForeignKey('actividad.id'), nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
 
 class Foto(Base):
     __tablename__ = 'foto'
-    id = Column(integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     ruta_archivo = Column(String(300), nullable=False)
     nombre_archivo = Column(String(300), nullable=False)
-    actividad_id = Column(integer, ForeignKey('actividad.id'), nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
 
 
 class Region(Base):
     __tablename__ = 'region'
-    id = Column(integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String(200), nullable=False)
 
 
@@ -72,6 +72,21 @@ class Region(Base):
 
 ########### FUNCTIONS #############
 
+def create_contact(text, type, activity_id):
+    session = SessionLocal()
+    new_contact = Contactar_Por(nombre = type, identificador=text, actividad_id=activity_id)
+    session.add(new_contact)
+    session.commit()
+    session.close()
+
+
+
+def create_tema(tema, otro, activity_id):
+    session = SessionLocal()
+    new_tema = Actividad_Tema(tema=tema, glosa_otro = otro, actividad_id=activity_id)
+    session.add(new_tema)
+    session.commit()
+    session.close()
 
 def get_activities(n):
     session = SessionLocal()
@@ -82,18 +97,23 @@ def get_activities(n):
     session.close()
     return events
 
-def create_activity(comuna_id, sector, nombre, email, celular, dia_hora_inicio, dia_hora_termino, descripcion):
+def create_activity(comuna_nombre, sector, nombre, email, celular, dia_hora_inicio, dia_hora_termino, descripcion):
     session = SessionLocal()
+    comuna_id = session.query(Comuna).filter_by(nombre=comuna_nombre).first().id
     new_activity = Actividad(comuna_id=comuna_id, sector=sector, nombre=nombre, email=email, celular=celular, dia_hora_inicio=dia_hora_inicio, dia_hora_termino=dia_hora_termino, descripcion=descripcion)
+    
     session.add(new_activity)
-    session.commit
+    session.commit()
+    id = int(new_activity.id)
     session.close()
+    
+    return id
 
 def create_photo(ruta_archivo, nombre_archivo, actividad_id):
     session = SessionLocal()
     new_photo = Foto(ruta_archivo=ruta_archivo, nombre_archivo=nombre_archivo, actividad_id=actividad_id)
     session.add(new_photo)
-    session.commit
+    session.commit()
     session.close()
 
 def get_actividad_by_id(id):
@@ -105,9 +125,12 @@ def get_actividad_by_id(id):
 def get_photos(id):
     session = SessionLocal()
     photos = session.query(Foto).filter_by(actividad_id=id).all()
-    fst = photos[0]
+    if photos:
+        fst = photos[0]
+        session.close()
+        return [fst, photos]
     session.close()
-    return [fst, photos]
+    return
 
 def get_photo_path_name(id):
     session = SessionLocal()

@@ -13,7 +13,7 @@
 
         <h1>Agrega una actividad</h1>
 
-        <form>
+        <form method="POST" enctype="multipart/form-data">
             <h2>Donde</h2>
             Region:
             <select name="Regiones" id="regiones" onchange="regionChange()" required>
@@ -21,21 +21,21 @@
             </select>
             <div></div>
             Comuna:
-            <select name="Regiones" id="comunas" required>
+            <select name="Comunas" id="comunas" required>
                 <option value="">Seleecione</option>
             </select>
             <div></div>
             Sector:
-            <input type="text" id="sector" maxlength="100">
+            <input type="text" id="sector" maxlength="100" name="sector-id">
             <h2>Quien organiza:</h2>
             Nombre:
-            <input type="text" maxlength="200" id="name" required>
+            <input type="text" maxlength="200" id="name" required name="name-id">
             <div></div>
             Correo Electronico:
-            <input type="email" maxlength="100" required id="email">
+            <input type="email" maxlength="100" required id="email" name="email-id">
             <div></div>
             Numero de Celular:
-            +<input type="tel" size="3" id="codigo">.<input type="tel" size="15" id="nro">
+            +<input type="tel" size="3" id="codigo" name="codigo-id">.<input type="tel" size="15" id="nro" name="nro-id">
             <div></div>
             <input type="checkbox" name="whatsapp" onclick="check(this)" class="contact"> Whatsapp
             <input type="text" id="whatsapp" name="whatsapp-id" style="display: none;"><br>
@@ -56,29 +56,29 @@
             <input type="text" id="otra" name="otra-id" style="display: none;"><br>
 
             <h2>Cuando y de que trata:</h2>
-            Dia y hora de inicio: <input type="datetime-local" id="hora-actual">
+            Dia y hora de inicio: <input type="datetime-local" id="hora-actual" name="hora-actual-id">
             <div></div>
-            Dia y hora de termino: <input type="datetime-local" id="hora-sgte">
+            Dia y hora de termino: <input type="datetime-local" id="hora-sgte" name="hora-sgte-id">
             <div></div>
             Descripcion: <textarea name="description" id="description-id" rows="10" cols="50"></textarea>
             <div></div>
             Tema: 
             <select name="temas" id="temas-id" onchange="themeChange(this)">
                 <option value="opciones" selected>Opciones</option>
-                <option value="">Musica</option>
-                <option value="">Deporte</option>
-                <option value="">Ciencias</option>
-                <option value="">Religion</option>
-                <option value="">Politica</option>
-                <option value="">Tecnologia</option>
-                <option value="">Juegos</option>
-                <option value="">Baile</option>
-                <option value="">Comida</option>
-                <option value="other">Otro</option>
+                <option value="música">música</option>
+                <option value="deporte">deporte</option>
+                <option value="ciencias">ciencias</option>
+                <option value="religión">religión</option>
+                <option value="política">política</option>
+                <option value="tecnología">tecnología</option>
+                <option value="juegos">juegos</option>
+                <option value="baile">baile</option>
+                <option value="comida">comida</option>
+                <option value="otro">otro</option>
             </select>
             <input type="text" id="otro" name="otro-id" style="display: none;" minlength="3" maxlength="15">
             <div id="files">
-                Foto:<input type="file" id="file-id">
+                Foto:<input type="file" id="file-id" name="file" accept="image/png, image/jpg, image/gif, image/jpeg">
                 <button onclick="newFile()" type="button">Agregar foto</button>
             </div>
             <button onclick="endForm()" type="button">Agregar esta Actividad</button>
@@ -89,13 +89,14 @@
             </div>
             <div id="next" style="display: none;">
                 Hemos recibido su información, muchas gracias y suerte en su actividad
-                <button onclick="goBack()" type="button">Volver</button>
+                <button type="submit">Volver</button>
             </div>
             
         </form>
         
         
         
-        <script src="/js/nueva.js" async defer></script>
+        
+        <script src="{{ url_for('static', filename='js/nueva.js') }}"></script>
     </body>
 </html>
