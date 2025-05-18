@@ -23,7 +23,7 @@
             </tr>
             {% if data %}
             {% for act in data%}
-            <tr>
+            <tr onclick="window.location.href='{{ url_for('ver_actividad', id=act.id) }}'" style="cursor: pointer;">
                 <th>{{ act.dia_hora_inicio }}</th>
                 <th>{{ act.dia_hora_termino }}</th>
                 <th>{{ get_comuna(act.id).nombre }}</th>

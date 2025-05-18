@@ -1,8 +1,8 @@
 <ul class="navbar">
-            <li><a href="index">Inicio</a></li>
-            <li><a href="nueva-actividad">Agregar Actividad</a></li>
-            <li><a href="lista">Lista de Actividades</a></li>
-            <li><a href="estadisticas">Estadisticas</a></li>
+            <li><a href="{{ url_for('main')}}">Inicio</a></li>
+            <li><a href="{{ url_for('nueva')}}">Agregar Actividad</a></li>
+            <li><a href="{{ url_for('lista')}}">Lista de Actividades</a></li>
+            <li><a href="{{ url_for('estadisticas')}}">Estadisticas</a></li>
         </ul>
 
 <style> .navbar {

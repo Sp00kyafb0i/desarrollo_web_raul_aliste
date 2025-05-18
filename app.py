@@ -39,10 +39,9 @@ def estadisticas():
     
 
 @app.route("/actividad/<int:id>", methods=["GET"])
-def profile(id=None):
-    if not id:
-        return render_template("html/index.html")
-    return render_template("actividad.html", id=id)
+def ver_actividad(id):
+    actividad = db.get_actividad_by_id(id)
+    return render_template("html/actividad.html", actividad=actividad, fotos = db.get_photos(id), comuna = db.get_comuna(id).nombre, tema = db.get_tema(id).tema, get_photos=db.get_photos)
 
 
 @app.route("/nueva-actividad", methods=["GET", "POST"])
@@ -108,10 +107,10 @@ def nueva():
                 _extension = filetype.guess(file).extension
                 img_filename = f"{_filename}_{str(uuid.uuid4())}.{_extension}"
                 print("New photo")
-                db.create_photo(os.path.join(app.config["UPLOAD_FOLDER"], img_filename), _filename, activity_id)
+                db.create_photo(os.path.join(app.config["UPLOAD_FOLDER"], img_filename).replace("\\", "/"), _filename, activity_id)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], img_filename))
 
 
         data = db.get_activities(5)
-        return render_template("html/index.html", data=data, get_comuna=db.get_comuna, get_tema=db.get_tema, get_photos=db.get_photos)
+        return redirect(url_for('ver_actividad', id=activity_id))
 
