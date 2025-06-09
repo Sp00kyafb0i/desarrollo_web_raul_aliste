@@ -67,10 +67,31 @@ class Region(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String(200), nullable=False)
 
+class Comentario(Base):
+    __tablename__ = 'comentario'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable=False)
+    fecha = Column(DateTime, nullable=False)
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
+
 
 
 
 ########### FUNCTIONS #############
+def create_comentario(nombre, texto, fecha, actividad_id):
+    session = SessionLocal()
+    new_comment = Comentario(nombre=nombre, texto=texto, fecha=fecha, actividad_id=actividad_id)
+    session.add(new_comment)
+    session.commit()
+    session.close()
+
+def get_comentarios(id_actividad):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(actividad_id=id_actividad).all()
+    session.close()
+    return comentarios
+
 
 def create_contact(text, type, activity_id):
     session = SessionLocal()

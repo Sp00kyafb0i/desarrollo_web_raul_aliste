@@ -27,6 +27,70 @@
             {% endfor %}
             
         </div>
+
+        <h2>Comentarios</h2>
+
+        <div id="comentarios-container">
+            <!-- Comentarios existentes se mostrarán aquí -->
+        </div>
+
+        <form id="comentario-form">
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required><br>
+            <textarea id="texto" name="texto" placeholder="Escribe tu comentario" required></textarea><br>
+            <button type="submit">Enviar Comentario</button>
+        </form>
+
+        <p id="error-msg" style="color: red;"></p>
+
+        <script>
+            const actividadId = {{ actividad.id }};
+
+            async function cargarComentarios() {
+                const res = await fetch(`/actividad/${actividadId}/comentarios`);
+                const comentarios = await res.json();
+                const container = document.getElementById('comentarios-container');
+                container.innerHTML = '';
+                comentarios.forEach(c => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<strong>${c.nombre}</strong> (${new Date(c.fecha).toLocaleString()}):<br>${c.texto}<hr>`;
+                    container.appendChild(div);
+                });
+            }
+
+            document.getElementById('comentario-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const nombre = document.getElementById('nombre').value.trim();
+                const texto = document.getElementById('texto').value.trim();
+                const error = document.getElementById('error-msg');
+
+                if (nombre.length < 3 || nombre.length > 80) {
+                    error.textContent = 'El nombre debe tener entre 3 y 80 caracteres.';
+                    return;
+                }
+
+                if (texto.length < 5) {
+                    error.textContent = 'El comentario debe tener al menos 5 caracteres.';
+                    return;
+                }
+
+                const res = await fetch(`/actividad/${actividadId}/comentarios`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, texto })
+                });
+
+                if (res.ok) {
+                    document.getElementById('comentario-form').reset();
+                    error.textContent = '';
+                    cargarComentarios();
+                } else {
+                    error.textContent = 'Error al enviar el comentario.';
+                }
+            });
+
+            cargarComentarios();
+        </script>
+
         
         <script src="/js/actividad.js" async defer></script>
     </body>

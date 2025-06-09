@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 import hashlib
 import filetype
 import os
@@ -41,7 +41,27 @@ def estadisticas():
 @app.route("/actividad/<int:id>", methods=["GET"])
 def ver_actividad(id):
     actividad = db.get_actividad_by_id(id)
-    return render_template("html/actividad.html", actividad=actividad, fotos = db.get_photos(id), comuna = db.get_comuna(id).nombre, tema = db.get_tema(id).tema, get_photos=db.get_photos)
+    return render_template("html/actividad.html", actividad=actividad, fotos = db.get_photos(id), comuna = db.get_comuna(id).nombre, tema = db.get_tema(id).tema, get_photos=db.get_photos, id=id)
+
+
+@app.route("/actividad/<int:id>/comentarios", methods=["GET"])
+def obtener_comentarios(id):
+    comentarios = db.get_comentarios(id)
+    return jsonify(comentarios)
+
+@app.route("/actividad/<int:id>/comentarios", methods=["POST"])
+def agregar_comentario(id):
+    data = request.get_json()
+    nombre = data.get("nombre", "").strip()
+    texto = data.get("texto", "").strip()
+
+    if not (3 <= len(nombre) <= 80) or len(texto) < 5:
+        return jsonify({"error": "Validación fallida"}), 400
+
+    db.insert_comentario(nombre, texto, id)
+    return jsonify({"success": True}), 200
+
+
 
 
 @app.route("/nueva-actividad", methods=["GET", "POST"])
