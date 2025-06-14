@@ -1,23 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Estadisticas</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    </head>
-    <body>
-        
-        {% include 'html/navbar.html' %}
+<head>
+    <meta charset="utf-8">
+    <title>Estadísticas</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    {% include 'html/navbar.html' %}
 
-        <div class="graphs">
-            <h1>Graficos:</h1>: <br>
-            <img src="/images/graph1.png" alt="Graph1">
-            <img src="/images/graph2.png" alt="Graph2">
-            <img src="/images/graph3.png" alt="Graph3">
-        </div>
-        <a href="index.html">Volver a la portada</a>
-    </body>
+    <h1>Estadísticas</h1>
+
+    <div id="grafico-lineas" style="width:100%; height:400px;"></div>
+    <div id="grafico-torta" style="width:100%; height:400px;"></div>
+    <div id="grafico-barras" style="width:100%; height:400px;"></div>
+
+    <a href="{{ url_for('main') }}">Volver a la portada</a>
+
+    <script>
+        // Gráfico de líneas
+        fetch('/api/estadisticas/actividades-por-dia')
+            .then(res => res.json())
+            .then(data => {
+                Highcharts.chart('grafico-lineas', {
+                    chart: { type: 'line' },
+                    title: { text: 'Actividades por Día' },
+                    xAxis: { categories: data.map(d => d.dia) },
+                    yAxis: { title: { text: 'Cantidad de actividades' } },
+                    series: [{ name: 'Actividades', data: data.map(d => d.cantidad) }]
+                });
+            });
+
+
+
+
+            
+        // Gráfico de torta
+        fetch('/api/estadisticas/actividades-por-tipo')
+            .then(res => res.json())
+            .then(data => {
+                Highcharts.chart('grafico-torta', {
+                    chart: { type: 'pie' },
+                    title: { text: 'Actividades por Tipo' },
+                    series: [{
+                        name: 'Cantidad',
+                        colorByPoint: true,
+                        data: data.map(t => ({ name: t.tipo, y: t.cantidad }))
+                    }]
+                });
+            });
+
+
+
+
+        // Gráfico de barras
+        fetch('/api/estadisticas/actividades-por-franja')
+            .then(res => res.json())
+            .then(data => {
+                Highcharts.chart('grafico-barras', {
+                    chart: { type: 'column' },
+                    title: { text: 'Actividades por Franja Horaria y Mes' },
+                    xAxis: { categories: data.meses, crosshair: true },
+                    yAxis: { min: 0, title: { text: 'Cantidad de actividades' }},
+                    tooltip: { shared: true },
+                    plotOptions: { column: { pointPadding: 0.2, borderWidth: 0 }},
+                    series: [
+                        { name: 'Mañana', data: data.manana },
+                        { name: 'Mediodía', data: data.mediodia },
+                        { name: 'Tarde', data: data.tarde }
+                    ]
+                });
+            });
+    </script>
+</body>
 </html>

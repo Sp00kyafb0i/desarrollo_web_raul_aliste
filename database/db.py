@@ -172,3 +172,62 @@ def get_comuna(actividad_id):
     comuna = session.query(Comuna).filter_by(id=user).first()
     session.close()
     return comuna
+
+
+
+
+def estadisticas_por_dia():
+    actividades = get_activities(None)  # obtener todas
+    conteo = {}
+    for act in actividades:
+        dia = act.dia_hora_inicio.date()
+        if dia not in conteo:
+            conteo[dia] = 0
+        conteo[dia] += 1
+    return [{"dia": str(k), "cantidad": v} for k, v in sorted(conteo.items())]
+
+
+def estadisticas_por_tipo():
+    actividades = get_activities(None)
+    conteo = {}
+    for act in actividades:
+        tema = get_tema(act.id)
+        if tema.tema not in conteo:
+            conteo[tema.tema] = 0
+        conteo[tema.tema] += 1
+    return [{"tipo": k, "cantidad": v} for k, v in conteo.items()]
+
+
+
+def estadisticas_por_franja():
+    actividades = get_activities(None)
+    franjas = {
+        "mañana": {},
+        "mediodía": {},
+        "tarde": {}
+    }
+    meses_set = set()
+
+    for act in actividades:
+        mes = act.dia_hora_inicio.strftime("%Y-%m")
+        hora = act.dia_hora_inicio.hour
+        if hora < 12:
+            franja = "mañana"
+        elif hora < 14:
+            franja = "mediodía"
+        else:
+            franja = "tarde"
+
+        if mes not in franjas[franja]:
+            franjas[franja][mes] = 0
+        franjas[franja][mes] += 1
+        meses_set.add(mes)
+
+    meses = sorted(meses_set)
+    return {
+        "meses": meses,
+        "manana": [franjas["mañana"].get(m, 0) for m in meses],
+        "mediodia": [franjas["mediodía"].get(m, 0) for m in meses],
+        "tarde": [franjas["tarde"].get(m, 0) for m in meses],
+    }
+

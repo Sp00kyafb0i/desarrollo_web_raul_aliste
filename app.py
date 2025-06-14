@@ -139,4 +139,23 @@ def nueva():
 
         data = db.get_activities(5)
         return redirect(url_for('ver_actividad', id=activity_id))
+    
+
+
+
+@app.route("/api/estadisticas/actividades-por-dia")
+def actividades_por_dia():
+    return jsonify(db.estadisticas_por_dia())
+
+@app.route("/api/estadisticas/actividades-por-tipo")
+def actividades_por_tipo():
+    return jsonify(db.estadisticas_por_tipo())
+
+@app.route("/api/estadisticas/actividades-por-franja")
+def actividades_por_franja():
+    return jsonify(db.estadisticas_por_franja())
+
+    
+
+
 
