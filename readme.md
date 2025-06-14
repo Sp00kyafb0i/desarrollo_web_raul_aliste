@@ -1,0 +1,2 @@
+Hice la base de datos con las credenciales: username: root y password: 2552 ya que cambie de pc entre medio de la tarea y se me fue poner las credenciales pedidas en el curso.
+Para cambiarlas, estas se encuentran en el archivo db.py
