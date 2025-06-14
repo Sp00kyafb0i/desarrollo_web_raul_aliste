@@ -6,8 +6,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 
 DB_NAME = "tarea2"
-DB_USERNAME = "cc5002"
-DB_PASSWORD = "programacionweb"
+DB_USERNAME = "root"
+DB_PASSWORD = "2552"
 DB_HOST = "localhost"
 DB_PORT = 3306
 

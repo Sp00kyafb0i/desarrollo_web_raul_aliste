@@ -43,7 +43,8 @@
         <p id="error-msg" style="color: red;"></p>
 
         <script>
-            const actividadId = {{ actividad.id }};
+            //const actividadId = {{ actividad.id }};
+            const actividadId = {{ id|tojson }};
 
             async function cargarComentarios() {
                 const res = await fetch(`/actividad/${actividadId}/comentarios`);

@@ -47,6 +47,11 @@ def ver_actividad(id):
 @app.route("/actividad/<int:id>/comentarios", methods=["GET"])
 def obtener_comentarios(id):
     comentarios = db.get_comentarios(id)
+    comentarios = [{
+        "nombre": c.nombre,
+        "texto": c.texto,
+        "fecha": c.fecha.strftime("%Y-%m-%d %H:%M:%S")
+    } for c in comentarios]
     return jsonify(comentarios)
 
 @app.route("/actividad/<int:id>/comentarios", methods=["POST"])
@@ -58,7 +63,8 @@ def agregar_comentario(id):
     if not (3 <= len(nombre) <= 80) or len(texto) < 5:
         return jsonify({"error": "Validación fallida"}), 400
 
-    db.insert_comentario(nombre, texto, id)
+    fecha = datetime.now()
+    db.create_comentario(nombre, texto, fecha ,id)
     return jsonify({"success": True}), 200
 
 
